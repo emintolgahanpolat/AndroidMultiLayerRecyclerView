@@ -1,6 +1,5 @@
 package com.emintolgahanpolat.recyclerviewinrecyclerview;
 
-import java.util.List;
 
 public class AnswerModel {
 

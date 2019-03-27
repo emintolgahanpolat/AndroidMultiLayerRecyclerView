@@ -5,9 +5,9 @@ import java.util.List;
 public class QuestionModel {
     private String id;
     private String question;
-    private List<AnswerModel> answers;
+    private List<Object> answers;
 
-    public QuestionModel(String id, String question, List<AnswerModel> answers) {
+    public QuestionModel(String id, String question, List<Object> answers) {
         this.id = id;
         this.question = question;
         this.answers = answers;
@@ -30,11 +30,11 @@ public class QuestionModel {
         this.question = question;
     }
 
-    public List<AnswerModel> getAnswers() {
+    public List<Object> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<AnswerModel> answers) {
+    public void setAnswers(List<Object> answers) {
         this.answers = answers;
     }
 }

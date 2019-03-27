@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<QuestionModel> questionList = new ArrayList<>();
+    private List<Object> questionList = new ArrayList<>();
 
 
     @Override
@@ -24,22 +24,22 @@ public class MainActivity extends AppCompatActivity {
 
         createData();
         init();
+        clickListener();
 
-        onClickListener();
     }
 
-    private void onClickListener() {
-        List<AnswerModel> answerModels = new ArrayList<AnswerModel>();
+    private void clickListener() {
         btnGetCheckedItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String items = "";
-                for (QuestionModel questionModel : questionList) {
-
-                    for (AnswerModel answerModel : questionModel.getAnswers()) {
-                        if (answerModel.isChecked()) {
-                            items=items+"Soru : "+questionModel.getId();
-                            items = items +" Cevap : "+ answerModel.getAnswer()+" \n";
+                for (Object questionModel : questionList) {
+                    QuestionModel a=(QuestionModel) questionModel;
+                    for (Object answerModel :  a.getAnswers()) {
+                        AnswerModel b=(AnswerModel) answerModel;
+                        if (b.isChecked()) {
+                            items=items+"Question  : "+a.getId();
+                            items = items +" Answer  : "+ b.getAnswer()+" \n";
                         }
                     }
                 }
@@ -48,41 +48,42 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private RecyclerView recyclerViewQuestion;
+
+    private RecyclerView recyclerView;
     private Button btnGetCheckedItems;
     private TextView txtCheckedItems;
+    private CustomRecyclerViewAdapter customRecyclerViewAdapter;
 
     private void init() {
 
-        recyclerViewQuestion = (RecyclerView) findViewById(R.id.recyclerViewQuestion);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewQuestion);
         btnGetCheckedItems = (Button) findViewById(R.id.btnGetCehckItems);
         txtCheckedItems = (TextView) findViewById(R.id.txtCheckedItems);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
 
-        recyclerViewQuestion.setHasFixedSize(true);
-        QuestionRecyclerViewAdapter adapter = new QuestionRecyclerViewAdapter(this, questionList);
-        recyclerViewQuestion.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerViewQuestion.setAdapter(adapter);
+        customRecyclerViewAdapter = new CustomRecyclerViewAdapter(this,questionList);
+        customRecyclerViewAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(customRecyclerViewAdapter);
+
+
     }
 
 
     private void createData() {
 
-        QuestionModel questionModel;
-        AnswerModel answerModel;
 
         for (int i = 0; i < 5; i++) {
-            List<AnswerModel> answerList = new ArrayList<>();
+            List<Object> answerList = new ArrayList<>();
             answerList.clear();
             for (int j = 0; j < i + 1; j++) {
-                answerModel = new AnswerModel(i + "answer" + j, false);
-                answerList.add(answerModel);
+                answerList.add(new AnswerModel(i + ". question " + j+". answer", false));
             }
 
 
-            questionModel = new QuestionModel("id"+i,"question"+i,answerList);
 
-            questionList.add(questionModel);
+            questionList.add(new QuestionModel("Id : " + i, "Question : " + i, answerList));
 
         }
     }
