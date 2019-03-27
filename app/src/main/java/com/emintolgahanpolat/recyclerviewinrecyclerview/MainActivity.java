@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                         AnswerModel b=(AnswerModel) answerModel;
                         if (b.isChecked()) {
                             items=items+"Question  : "+a.getId();
-                            items = items +" Answer  : "+ b.getAnswer()+" \n";
+                            items = items +" | Answer  : "+ b.getAnswer()+" \n";
                         }
                     }
                 }
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private void createData() {
 
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             List<Object> answerList = new ArrayList<>();
             answerList.clear();
             for (int j = 0; j < i + 1; j++) {

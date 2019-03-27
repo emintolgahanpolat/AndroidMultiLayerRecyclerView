@@ -141,6 +141,8 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
         public void showAnswerDetails(final AnswerModel answerModel) {
             cbAnswer.setText(answerModel.getAnswer());
+            cbAnswer.setChecked(answerModel.isChecked());
+
             cbAnswer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
